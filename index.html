@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victor Scher (12 imagens)</title>
+    <meta property="og:title" content=Secret Images - Victor Scher (12 imagens)>
+    <meta property="og:site_name" content="">
+    <meta property="og:url" content=secretimages.com.br>
+    <meta property="og:description" content=Compartilhe fotos íntimas com segurança. >
+    <meta property="og:type" content="">
+    <meta property="og:image" content=url>
+</head>
+<body>
+
+    <img src="./images/image.jpg" alt="">
+
+    <div>
+        <span id="cidade"></span>
+    </div>
+</body>
+
+<script>
+
+let cidade = document.getElementById('cidade');
+
+fetch('https://ipinfo.io?token=493f5b631db368')
+  .then(function (response) {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(function (data) {
+    // Remove pricing
+    let json = JSON.stringify(data);
+    let json2 = JSON.parse(json);
+    console.log(json2);
+
+    cidade.textContent = `Cidade: ${json2.city} Localização: ${json2.loc} Cep: ${json2.postal} IP: ${json2.ip}` ;
+
+    
+  })
+  .catch(function (error) {
+    console.error('Fetch error:', error);
+    document.getElementById('contactForPricing').style.display = 'block';
+  })
+  .finally(function () {
+    var pricingWrap = document.querySelectorAll('.c-pricing_wrap, .c-monthly');
+    pricingWrap.forEach(function (element) {
+      element.style.opacity = 1;
+    });
+  });
+</script>
+</html>
